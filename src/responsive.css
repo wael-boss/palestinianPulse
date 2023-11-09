@@ -1,0 +1,31 @@
+@media (width<1200px){
+  :root{
+      --fontSize-B:28px;
+      --fontSize-M:23px;
+  }
+}
+@media (width<992px){
+  :root{
+      --fontSize-B:25px;
+      --fontSize-M:20px;
+  }
+}
+@media (width<768px){
+  :root{
+      --fontSize-B:22px;
+      --fontSize-M:17px;
+  }
+}
+@media (width<576px){
+  :root{
+      --fontSize-B:20px;
+      --fontSize-S:15px;
+  }
+}
+@media (width<450px){
+  :root{
+      --fontSize-B:18px;
+      --fontSize-M:16px;
+      --fontSize-S:11px;
+  }
+}

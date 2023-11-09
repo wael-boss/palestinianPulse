@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Noto+Nastaliq+Urdu&family=Reem+Kufi+Fun:wght@500&display=swap');
+:root{
+  --black:#000;
+  --red:hsl(353, 85%, 44%);
+  --white:#fff;
+  --green:hsl(150, 100%, 24%);
+  --font1:'Noto Nastaliq Urdu', serif;
+  --font2: 'Cairo', sans-serif;
+  --font3: 'Reem Kufi Fun', sans-serif;
+  --fontSize-B:30px;
+  --fontSize-M:25px;
+  --fontSize-S:15px;
+  --radius-B:18px;
+  --radius-M:12px;
+  --radius-S:6px;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: var(--font2);
+  font-size: var(--fontSize-M);
+  scrollbar-color: var(--red) var(--black);
+  scrollbar-width:thin;
+  scrollbar-gutter: none;
+}
+::selection{
+  background-color: var(--red);
+}
+*:is(p ,div ,span ,a ,button ,input ,select ,textarea){
+  color: #fff;
+}
+html{
+  overflow-x: hidden;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--black);
+  overflow-x: hidden;
+}
+header{
+  box-shadow:1px 0 3px hsl(150, 100%, 24%);
+}
