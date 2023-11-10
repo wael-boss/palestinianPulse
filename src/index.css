@@ -43,10 +43,17 @@ body {
 header{
   box-shadow:1px 0 3px hsl(150, 100%, 24%);
 }
+#mainSection{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 2%;
+}
 #timeLineContainer{
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
 }
 .eventContainer{
   width: 50%;
@@ -128,13 +135,47 @@ header{
   background-color: inherit;
   z-index: -1;
 }
-.eventContainer:nth-child(even)>.event::before{
-  content: "";
-  position: absolute;
-
+/* make all dates next to line */
+.eventContainer:nth-child(odd)>.event{
+  flex-direction: row-reverse;
+}
+/* date border accordingly */
+.eventContainer:nth-child(odd)>.event>.eventDate{
+  border-left: 2px solid var(--green);
+}
+.eventContainer:nth-child(even)>.event>.eventDate{
+  border-right: 2px solid var(--green);
 }
 .event{
   position: relative;
   width: 90%;
   background-color: hsl(0, 0%, 5%);
+  display: flex;
+  gap: 10px;
+}
+.event>div{
+  padding: 10px;
+}
+.event>.eventDate{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+}
+.event>.eventDate *{
+  font-size: var(--fontSize-S);
+  line-height: -2px;
+}
+.event>.eventDate span{
+  font-size: var(--fontSize-B);
+}
+.event>.eventTxt *{
+  text-align: right;
+}
+.event>.eventTxt h1{
+  font-size: var(--radius-B);
+}
+.event>.eventTxt p{
+  font-size: var(--radius-M);
 }

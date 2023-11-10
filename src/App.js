@@ -1,13 +1,13 @@
 import Footer from "./components/footer";
 import Header from "./components/header";
-import TimeLine from "./components/timeLine";
+import Main from "./components/main";
 
 
 function App() {
   return (
     <div className="App">
       <Header/>
-      <TimeLine/>
+      <Main/>
       <Footer/>
       <p style={{fontFamily:"'Noto Nastaliq Urdu', serif"}}>عدد كبير من الشهداء.. القصف الإسرائيلي يستهدف منزلين في مخيم جباليا</p>
       <p style={{fontFamily:"'Cairo', sans-serif"}}>عدد كبير من الشهداء.. القصف الإسرائيلي يستهدف منزلين في مخيم جباليا</p>
