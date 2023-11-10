@@ -1,14 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Noto+Nastaliq+Urdu&family=Reem+Kufi+Fun:wght@500&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Noto+Nastaliq+Urdu&family=Reem+Kufi+Fun:wght@500&display=swap'); */
 :root{
-  --black:#000;
   --red:hsl(353, 85%, 44%);
-  --white:#fff;
   --green:hsl(150, 100%, 24%);
+  --blue:#1f73fb;
+  --black1:#000;
+  --black2:hsl(0, 0%, 20%);
+  --black3:hsl(0, 0%, 25%);
+  --black4:hsl(0, 0%, 30%);
+  --black5:hsl(0, 0%, 40%);
+  --white1:#fff;
+  --white2:hsl(0, 0%, 95%);
+  --white3:hsl(0, 0%, 90%);
+  --white4:hsl(0, 0%, 80%);
+  --white5:hsl(0, 0%, 70%);
   --font1:'Noto Nastaliq Urdu', serif;
-  --font2: 'Cairo', sans-serif;
+  --font2:tahoma;
   --font3: 'Reem Kufi Fun', sans-serif;
-  --fontSize-B:30px;
-  --fontSize-M:25px;
+  --fontSize-B:28px;
+  --fontSize-M:23px;
   --fontSize-S:15px;
   --radius-B:18px;
   --radius-M:12px;
@@ -21,15 +30,15 @@
   box-sizing: border-box;
   font-family: var(--font2);
   font-size: var(--fontSize-M);
-  scrollbar-color: var(--red) var(--black);
+  scrollbar-color: var(--red) var(--black1);
   scrollbar-width:thin;
   scrollbar-gutter: none;
 }
 ::selection{
-  background-color: var(--red);
+  background-color: var(--blue);
 }
 *:is(p ,div ,span ,a ,button ,input ,select ,textarea){
-  color: #fff;
+  color: var(--black3);
 }
 html{
   overflow-x: hidden;
@@ -37,7 +46,7 @@ html{
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: var(--black);
+  background-color: var(--white3);
   overflow-x: hidden;
 }
 header{
@@ -61,9 +70,14 @@ header{
   place-items: center;
   position: relative;
 }
+/* left or right block placement */
 .eventContainer:nth-child(odd){
   margin-left: 0;
 }
+.eventContainer:nth-child(even){
+  margin-left: 50%;
+}
+/* line */
 .eventContainer:nth-child(odd)::before{
   content: "";
   position: absolute;
@@ -71,23 +85,7 @@ header{
   right: -2px;
   bottom: 0;
   width: 4px;
-  background-color: var(--red);
-}
-.eventContainer:nth-child(odd)::after{
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -10px;
-  bottom: 50%;
-  width: 16px;
-  aspect-ratio: 1/1;
-  background-color: var(--green);
-  border: 2px solid var(--black);
-  border-radius: 50%;
-  transform: translateY(-50%);
-}
-.eventContainer:nth-child(even){
-  margin-left: 50%;
+  background-color: var(--white5);
 }
 .eventContainer:nth-child(even)::before{
   content: "";
@@ -96,21 +94,36 @@ header{
   left: -2px;
   bottom: 0;
   width: 4px;
-  background-color: var(--red);
+  background-color: var(--white5);
+}
+/* event orb */
+.eventContainer:nth-child(odd)::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -8px;
+  bottom: 50%;
+  width: 10px;
+  aspect-ratio: 1/1;
+  background-color: var(--blue);
+  border: 3px solid var(--white2);
+  border-radius: 50%;
+  transform: translateY(-50%);
 }
 .eventContainer:nth-child(even)::after{
   content: "";
   position: absolute;
   top: 50%;
-  left: -10px;
+  left: -8px;
   bottom: 50%;
-  width: 16px;
+  width: 10px;
   aspect-ratio: 1/1;
-  background-color: var(--green);
-  border: 2px solid var(--black);
+  background-color: var(--blue);
+  border: 3px solid var(--white2);
   border-radius: 50%;
   transform: translateY(-50%);
 }
+/* event pointer */
 .eventContainer:nth-child(odd)>.event::before{
   content: "";
   position: absolute;
@@ -141,15 +154,15 @@ header{
 }
 /* date border accordingly */
 .eventContainer:nth-child(odd)>.event>.eventDate{
-  border-left: 2px solid var(--green);
+  border-left: 1px solid var(--white3);
 }
 .eventContainer:nth-child(even)>.event>.eventDate{
-  border-right: 2px solid var(--green);
+  border-right: 1px solid var(--white3);
 }
 .event{
   position: relative;
   width: 90%;
-  background-color: hsl(0, 0%, 5%);
+  background-color: var(--white1);
   display: flex;
   gap: 10px;
 }
@@ -174,8 +187,11 @@ header{
   text-align: right;
 }
 .event>.eventTxt h1{
-  font-size: var(--radius-B);
+  font-size: var(--fontSize-M);
+  margin-bottom: 5px;
+  color: var(--black2);
 }
 .event>.eventTxt p{
-  font-size: var(--radius-M);
+  font-size: var(--fontSize-S);
+  color: var(--black4);
 }

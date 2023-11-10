@@ -1,13 +1,13 @@
 @media (width<1200px){
   :root{
-      --fontSize-B:28px;
-      --fontSize-M:23px;
+      --fontSize-B:25px;
+      --fontSize-M:20px;
   }
 }
 @media (width<992px){
   :root{
-      --fontSize-B:25px;
-      --fontSize-M:20px;
+      --fontSize-B:23px;
+      --fontSize-M:18px;
   }
 }
 @media (width<768px){

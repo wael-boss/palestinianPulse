@@ -6,7 +6,6 @@ import Main from "./components/main";
 function App() {
   return (
     <div className="App">
-      <Header/>
       <Main/>
       <Footer/>
       <p style={{fontFamily:"'Noto Nastaliq Urdu', serif"}}>عدد كبير من الشهداء.. القصف الإسرائيلي يستهدف منزلين في مخيم جباليا</p>
