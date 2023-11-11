@@ -17,8 +17,8 @@
   --font2:tahoma;
   --font3: 'Reem Kufi Fun', sans-serif;
   --fontSize-B:28px;
-  --fontSize-M:23px;
-  --fontSize-S:15px;
+  --fontSize-M:21px;
+  --fontSize-S:17px;
   --radius-B:18px;
   --radius-M:12px;
   --radius-S:6px;
@@ -183,15 +183,21 @@ header{
 .event>.eventDate span{
   font-size: var(--fontSize-B);
 }
+.event>.eventTxt{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+}
 .event>.eventTxt *{
   text-align: right;
 }
 .event>.eventTxt h1{
-  font-size: var(--fontSize-M);
-  margin-bottom: 5px;
+  font-size: calc(var(--fontSize-M) - 2px);
   color: var(--black2);
 }
 .event>.eventTxt p{
   font-size: var(--fontSize-S);
   color: var(--black4);
+  /* display: none; */
 }

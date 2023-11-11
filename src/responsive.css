@@ -1,13 +1,14 @@
 @media (width<1200px){
   :root{
       --fontSize-B:25px;
-      --fontSize-M:20px;
+      --fontSize-M:19px;
   }
 }
 @media (width<992px){
   :root{
       --fontSize-B:23px;
       --fontSize-M:18px;
+      --fontSize-S:15px;
   }
 }
 @media (width<768px){
@@ -15,17 +16,41 @@
       --fontSize-B:22px;
       --fontSize-M:17px;
   }
+  .eventContainer:nth-child(even){
+    margin-left: 0;
+  }
+  .eventContainer:nth-child(odd)::before{
+    left: -2px;
+  }
+  .eventContainer:nth-child(odd)::after{
+    left: -8px;
+  }
+  .eventContainer:nth-child(odd)>.event::before{
+    left: -7px;
+  }
+  .eventContainer{
+    width: 100%;
+    padding: 10px;
+  }
+  .eventContainer:nth-child(odd)>.event{
+    flex-direction: row;
+  }
+  .eventContainer:nth-child(odd)>.event>.eventDate{
+    border-left: none;
+    border-right: 1px solid var(--white3);
+  }
 }
 @media (width<576px){
   :root{
       --fontSize-B:20px;
-      --fontSize-S:15px;
+      --fontSize-M:16px;
+      --fontSize-S:13px;
   }
 }
 @media (width<450px){
   :root{
       --fontSize-B:18px;
-      --fontSize-M:16px;
+      --fontSize-M:14px;
       --fontSize-S:11px;
   }
 }
