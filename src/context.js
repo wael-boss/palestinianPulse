@@ -8,15 +8,15 @@ export const DataProvider=({children})=>{
       ]
     const [posts ,setPosts]=useState([])
     const [lang ,setLang]=useState(null)
+    const [error ,setError]=useState(null)
     const getPosts=async()=>{
         const URL="https://palestine.abdel-alim.com/wp-json/wp/v2/posts"
         try{
-            const response=await fetch(URL)
-            const data=await response.json()
-            console.log(data)
-            setPosts(data)
+            const data=await axios.get(URL)
+            console.log(data.data)
+            setPosts(data.data)
         }catch(err){
-            console.log(err)
+            errorFormat(err)
         }
     }
     const defaultLang=async()=>{
@@ -27,20 +27,36 @@ export const DataProvider=({children})=>{
             setLang('ENG')
         }catch(err){
             setLang('AR')
-            console.log(err)
+            errorFormat(err)
         }
     }
+    const errorFormat=(err ,message=null)=>{
+        console.log(err)
+        setError({data:message!==null ? message : err.response?.data.message ? err.response?.data.message : err.message,time:Date.now()})
+    }
     useEffect(()=>{
-        defaultLang()
+        if(!lang) defaultLang()
     },[])
     useEffect(()=>{
         if(!lang) defaultLang()
         // include lang format when available
         getPosts()
     },[lang])
+    useEffect(()=>{
+        if(!error) return
+        setTimeout(()=>{
+            // prevent previous error from disabeling newer ones
+            setError(prev=>{
+                if(prev===null) return null
+                const dif=prev.time-Date.now()
+                if(dif>100) return prev
+                return null
+            })
+        },3000)
+    },[error])
   return(
       <DataContext.Provider value={{
-            getPosts ,posts
+            getPosts ,posts ,error
         }}>
           {children}
       </DataContext.Provider>

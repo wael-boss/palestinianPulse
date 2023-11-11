@@ -49,8 +49,17 @@ body {
   background-color: var(--white3);
   overflow-x: hidden;
 }
-header{
-  box-shadow:1px 0 3px hsl(150, 100%, 24%);
+#errTab{
+  position: fixed;
+  width: 100vw;
+  bottom: 100%;
+  display: grid;
+  place-items: center;
+  background-color: var(--white3);
+  border: 1px solid var(--black5);
+  transition: all .3s ease-in-out;
+  padding: 5px 0;
+  z-index: 99;
 }
 #pageView{
   display: flex;
