@@ -1,10 +1,14 @@
+import Hero from "./hero"
 import TimeLine from "./timeLine"
 
 const Main = () => {
   return (
-    <section id="mainSection">
-      <TimeLine/>
-    </section>
+    <div id="pageView">
+      <Hero/>
+      <section id="timeLineSection">
+        <TimeLine/>
+      </section>
+    </div>
   )
 }
 

@@ -41,6 +41,45 @@ const TimeLine = () => {
                 </div>
             </div>
         </div>
+        <div className="eventContainer">
+            <div className="event">
+                <div className="eventDate">
+                    <p>Nov</p>
+                    <span>10</span>
+                    <p>2023</p>
+                </div>
+                <div className="eventTxt">
+                    <h1>جنوب أفريقيا تدعو الجنائية الدولية للتحقيق مع قادة إسرائيل بشأن الإبادة الجماعية</h1>
+                    <p>دعت جنوب أفريقيا، الجمعة، المحكمة الجنائية الدولية، إلى التحقيق مع قادة إسرائيل بشأن ارتكاب جرائم حرب وإبادة جماعية في قطاع غزة الفلسطيني المحاصر.</p>
+                </div>
+            </div>
+        </div>
+        <div className="eventContainer">
+            <div className="event">
+                <div className="eventDate">
+                    <p>Nov</p>
+                    <span>10</span>
+                    <p>2023</p>
+                </div>
+                <div className="eventTxt">
+                    <h1>جنوب أفريقيا تدعو الجنائية الدولية للتحقيق مع قادة إسرائيل بشأن الإبادة الجماعية</h1>
+                    <p>دعت جنوب أفريقيا، الجمعة، المحكمة الجنائية الدولية، إلى التحقيق مع قادة إسرائيل بشأن ارتكاب جرائم حرب وإبادة جماعية في قطاع غزة الفلسطيني المحاصر.</p>
+                </div>
+            </div>
+        </div>
+        <div className="eventContainer">
+            <div className="event">
+                <div className="eventDate">
+                    <p>Nov</p>
+                    <span>10</span>
+                    <p>2023</p>
+                </div>
+                <div className="eventTxt">
+                    <h1>جنوب أفريقيا تدعو الجنائية الدولية للتحقيق مع قادة إسرائيل بشأن الإبادة الجماعية</h1>
+                    <p>دعت جنوب أفريقيا، الجمعة، المحكمة الجنائية الدولية، إلى التحقيق مع قادة إسرائيل بشأن ارتكاب جرائم حرب وإبادة جماعية في قطاع غزة الفلسطيني المحاصر.</p>
+                </div>
+            </div>
+        </div>
     </div>
   )
 }

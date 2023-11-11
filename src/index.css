@@ -1,11 +1,11 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Noto+Nastaliq+Urdu&family=Reem+Kufi+Fun:wght@500&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Noto+Nastaliq+Urdu&family=Reem+Kufi+Fun:wght@500&display=swap');
 :root{
   --red:hsl(353, 85%, 44%);
   --green:hsl(150, 100%, 24%);
   --blue:#1f73fb;
   --black1:#000;
-  --black2:hsl(0, 0%, 20%);
-  --black3:hsl(0, 0%, 25%);
+  --black2:hsl(0, 0%, 15%);
+  --black3:hsl(0, 0%, 20%);
   --black4:hsl(0, 0%, 30%);
   --black5:hsl(0, 0%, 40%);
   --white1:#fff;
@@ -52,17 +52,47 @@ body {
 header{
   box-shadow:1px 0 3px hsl(150, 100%, 24%);
 }
-#mainSection{
+#pageView{
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding: 2%;
+}
+#pageView>section{
+  width: 100%;
+  padding: 20px 2%;
+}
+#heroSection{
+  position: relative;
+  min-height: 70vh;
+  display: grid;
+  place-items: center;
+}
+#heroSection::after{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(transparent 90% ,var(--white3) 100%);
+}
+#heroSection>video{
+  height: 70vh;
+  width: 100%;
+  object-fit: fill;
+  filter: grayscale(1);
+}
+#heroSection>img{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  z-index: 10;
 }
 #timeLineContainer{
   display: flex;
   flex-direction: column;
   width: 100%;
+  transform: translateY(-200px);
 }
 .eventContainer{
   width: 50%;
