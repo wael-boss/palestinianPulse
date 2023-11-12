@@ -50,6 +50,16 @@ body {
   background-color: var(--white3);
   overflow-x: hidden;
 }
+::-webkit-scrollbar{
+  width: 7px;
+}
+::-webkit-scrollbar-track{
+  background-color: var(--white3);
+}
+::-webkit-scrollbar-thumb{
+  background-color: var(--blue);
+  border-radius: 30px;
+}
 #errTab{
   position: fixed;
   width: 100vw;
@@ -152,6 +162,11 @@ body {
   place-items: center;
   position: relative;
 }
+/* observed */
+.eventContainer:is(.visible)>.event{
+  opacity: 1;
+  transform: translateY(0%);
+}
 /* left or right block placement */
 .eventContainer:nth-child(odd){
   margin-left: 0;
@@ -247,6 +262,10 @@ body {
   background-color: var(--white1);
   display: flex;
   gap: 10px;
+  opacity: 0;
+  transform: translateY(-50%);
+  transition:all .3s ease-in-out , transform .3s .3s, opacity .3s .3s ease-in-out ;
+
 }
 .event>div{
   padding: 10px;

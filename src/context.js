@@ -85,6 +85,19 @@ export const DataProvider=({children})=>{
             })
         },3000)
     },[error])
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          const intersecting = entry.isIntersecting
+          if (intersecting) {
+            entry.target.classList.replace('observed', 'visible');
+        }
+    });
+    })
+    useEffect(()=>{
+        const containers = document.querySelectorAll('.observed');
+        console.log(containers.length)
+        containers.forEach(container=>observer.observe(container))
+      },[posts])
   return(
       <DataContext.Provider value={{
             posts ,error ,setLang ,lang
