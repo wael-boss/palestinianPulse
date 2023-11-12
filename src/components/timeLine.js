@@ -6,7 +6,7 @@ const TimeLine = () => {
     const {getPosts ,posts}=useContext(DataContext)
   return (
     <div id="timeLineContainer">
-        {posts.map(post=>{
+        {posts.sort((a ,b)=>b.date.getTime()-a.date.getTime()).map(post=>{
             return <Post
                         key={post.id}
                         post={post}

@@ -282,3 +282,7 @@ body {
   font-size: var(--fontSize-S);
   color: var(--black4);
 }
+.event>.eventTxt img{
+  width: 50px;
+  height: 50px;
+}
