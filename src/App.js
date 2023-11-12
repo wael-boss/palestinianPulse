@@ -8,7 +8,6 @@ function App() {
     <div className="App">
       <ErrTab/>
       <Main/>
-      <Footer/>
     </div>
   );
 }

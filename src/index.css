@@ -13,6 +13,7 @@
   --white3:hsl(0, 0%, 90%);
   --white4:hsl(0, 0%, 80%);
   --white5:hsl(0, 0%, 70%);
+  --langAlign:right;
   --font1:'Noto Nastaliq Urdu', serif;
   --font2:tahoma;
   --font3: 'Reem Kufi Fun', sans-serif;
@@ -37,7 +38,7 @@
 ::selection{
   background-color: var(--blue);
 }
-*:is(p ,div ,span ,a ,button ,input ,select ,textarea){
+*{
   color: var(--black3);
 }
 html{
@@ -60,6 +61,48 @@ body {
   transition: all .3s ease-in-out;
   padding: 5px 0;
   z-index: 99;
+}
+#langToggle{
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 20;
+}
+#langToggle>button{
+  position: relative;
+  display: grid;
+  place-items: center;
+  box-shadow: 2px 2px 3px var(--black5);
+  padding: 5px;
+  box-sizing: content-box;
+  border-radius: 50%;
+  background-color: var(--white1);
+  border: none;
+  cursor: pointer;
+}
+#langToggle svg{
+  font-size: var(--fontSize-B);
+  z-index: 21;
+}
+#langToggle>button:is(:hover ,:focus){
+  background-color: var(--white4);
+}
+#langToggle p{
+  position: absolute;
+  font-size: var(--fontSize-S);
+  font-weight: 800;
+  text-align: right;
+  width: 1px;
+  opacity: 0;
+  z-index: -1;
+  transition: all .3s ease-in-out ;
+}
+#langToggle>button:is(:focus)>p{
+  opacity:1;
+  width: 350%;
+}
+#langToggle>button:is(:focus)>:nth-child(3){
+  transform:rotate(-90deg);
 }
 #pageView{
   display: flex;
@@ -229,7 +272,7 @@ body {
   justify-content: center;
 }
 .event>.eventTxt *{
-  text-align: right;
+  text-align: var(--langAlign);
 }
 .event>.eventTxt h1{
   font-size: calc(var(--fontSize-M) - 2px);
@@ -238,5 +281,4 @@ body {
 .event>.eventTxt p{
   font-size: var(--fontSize-S);
   color: var(--black4);
-  /* display: none; */
 }
