@@ -7,7 +7,7 @@ const Post = ({post}) => {
         "October", "November", "December"
     ];
     // [month ,date ,year]
-    const dateArr=post.date.toLocaleDateString("en-US").split("/")
+    const dateArr=post.eventDate==="Invalid Date" ? post.eventDate.toLocaleDateString("en-US").split("/") : post.postDate.toLocaleDateString("en-US").split("/")
     return (
         <div className="eventContainer">
                 <div className="event">

@@ -12,15 +12,16 @@ export const DataProvider=({children})=>{
     const [error ,setError]=useState(null)
     const postsFormat=(posts)=>{
         let result=[]
+        console.log(posts)
         posts.map(post=>{
             const blocks=post.content.rendered.trim('\n').split('\n\n\n\n')
             const dateBlock=blocks[blocks.length-1]
-            console.log(post.content.rendered)
             const eventDate=dateBlock.slice(dateBlock.indexOf(">")+1 ,-4)
             result.push({
                 id:post.id,
                 title:post.title.rendered,
-                date:new Date(eventDate),
+                eventDate:new Date(eventDate),
+                postDate:new Date(post.date),
                 block:post.content.rendered
             })
         })
@@ -30,7 +31,6 @@ export const DataProvider=({children})=>{
         const URL="https://palestine.abdel-alim.com/wp-json/wp/v2/posts"
         try{
             const data=await axios.get(URL)
-            console.log(data.data)
             setPosts(postsFormat(data.data))
         }catch(err){
             errorFormat(err)

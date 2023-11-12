@@ -270,6 +270,7 @@ body {
   flex-direction: column;
   gap: 5px;
   justify-content: center;
+  flex-grow: 1;
 }
 .event>.eventTxt *{
   text-align: var(--langAlign);
