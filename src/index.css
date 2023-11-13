@@ -127,7 +127,7 @@ body {
 #moreInfoContainer{
   position: relative;
   width: 70%;
-  max-height: 70%;
+  height: 70%;
   background-color: var(--white3);
   border-radius: var(--radius-B) 0  0 var(--radius-B);
   display: flex;
@@ -332,7 +332,7 @@ body {
   cursor: pointer;
 }
 .event:is(:hover ,:focus){
-  background-color: var(--white4);
+  background-color: var(--white2);
 }
 .event>div{
   padding: 10px;

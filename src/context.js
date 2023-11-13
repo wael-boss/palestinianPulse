@@ -17,7 +17,7 @@ export const DataProvider=({children})=>{
             const blocks=post.content.rendered.trim('\n').split('\n\n\n\n')
             const dateBlock=blocks[blocks.length-1]
             const eventDate=dateBlock.slice(dateBlock.indexOf(">")+1 ,-4)
-            result.push({
+            return result.push({
                 id:post.id,
                 title:post.title.rendered,
                 eventDate:new Date(eventDate),
@@ -67,11 +67,13 @@ export const DataProvider=({children})=>{
     }
     useEffect(()=>{
         if(!lang && !isLoading) defaultLang()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     useEffect(()=>{
         if(!lang) return 
         getPosts()
         langPageFormat()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[lang])
     useEffect(()=>{
         if(!error) return
@@ -96,6 +98,7 @@ export const DataProvider=({children})=>{
     useEffect(()=>{
         const containers = document.querySelectorAll('.observed');
         containers.forEach(container=>observer.observe(container))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       },[posts])
   return(
       <DataContext.Provider value={{

@@ -8,7 +8,7 @@ const Hero = () => {
           loop
           muted
         />
-        <img src="palestineFlag.png"/>
+        <img src="palestineFlag.png" alt="palestine-flag"/>
     </section>
   )
 }

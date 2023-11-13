@@ -8,8 +8,8 @@ const TimeLine = () => {
     return (
       <div id="timeLineContainer">
           {posts.sort((a ,b)=>{
-          const aTime=a.eventDate=="Invalid Date" ? a.postDate.getTime() : a.eventDate.getTime()
-          const bTime=b.eventDate=="Invalid Date" ? b.postDate.getTime() : b.eventDate.getTime()
+              const aTime=isNaN(a.eventDate.getTime()) ? a.postDate.getTime() : a.eventDate.getTime()
+              const bTime=isNaN(b.eventDate.getTime()) ? b.postDate.getTime() : b.eventDate.getTime()
           return bTime-aTime  
           }).map(post=>{
               return <Post
