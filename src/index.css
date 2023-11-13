@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Noto+Nastaliq+Urdu&family=Reem+Kufi+Fun:wght@500&display=swap');
-:root{
+@import url('https://fonts.googleapis.com/css2?family=Redacted+Script&display=swap');:root{
   --red:hsl(353, 85%, 44%);
   --green:hsl(150, 100%, 24%);
   --blue:#1f73fb;
@@ -17,6 +17,7 @@
   --font1:'Noto Nastaliq Urdu', serif;
   --font2:tahoma;
   --font3: 'Reem Kufi Fun', sans-serif;
+  --font4: 'Redacted Script', cursive;
   --fontSize-B:28px;
   --fontSize-M:21px;
   --fontSize-S:17px;
@@ -161,6 +162,7 @@ body {
   display: grid;
   place-items: center;
   position: relative;
+  transition: all .3s ease-in-out;
 }
 /* observed */
 .eventContainer:is(.visible)>.event{
@@ -220,6 +222,22 @@ body {
   border-radius: 50%;
   transform: translateY(-50%);
 }
+.eventContainer:is(.loading)>.event{
+  background: linear-gradient(40deg, var(--white2) 25%, var(--white4) 50%, var(--white2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+.eventContainer:is(.loading) *{
+  font-family: var(--font4);
+}
 /* event pointer */
 .eventContainer:nth-child(odd)>.event::before{
   content: "";
@@ -264,7 +282,7 @@ body {
   gap: 10px;
   opacity: 0;
   transform: translateY(-50%);
-  transition:all .3s ease-in-out , transform .3s .3s, opacity .3s .3s ease-in-out ;
+  transition:all .3s ease-in-out ;
 
 }
 .event>div{
