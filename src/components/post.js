@@ -1,5 +1,8 @@
+import { useContext } from "react";
+import DataContext from "../context";
 
 const Post = ({post}) => {
+    const {setMoreInfo}=useContext(DataContext)
     const monthNames = [
         "January", "February", "March",
         "April", "May", "June",
@@ -8,10 +11,9 @@ const Post = ({post}) => {
     ];
     // [month ,date ,year]
     const dateArr=post.eventDate=="Invalid Date" ? post.postDate.toLocaleDateString("en-US").split("/") : post.eventDate.toLocaleDateString("en-US").split("/")
-    console.log(post)
     return (
         <div className="eventContainer observed">
-            <div className="event">
+            <div className="event" onClick={()=>{setMoreInfo(post)}}>
                 {dateArr[0]!=="Invalid Date" &&<div className="eventDate">
                     <p>{monthNames[dateArr[0]-1].slice(0 ,3)}</p>
                     <span>{dateArr[1]}</span>

@@ -10,9 +10,9 @@ export const DataProvider=({children})=>{
     const [posts ,setPosts]=useState([])
     const [lang ,setLang]=useState(null)
     const [error ,setError]=useState(null)
+    const [moreInfo ,setMoreInfo]=useState(null)
     const postsFormat=(posts)=>{
         let result=[]
-        console.log(posts)
         posts.map(post=>{
             const blocks=post.content.rendered.trim('\n').split('\n\n\n\n')
             const dateBlock=blocks[blocks.length-1]
@@ -46,7 +46,7 @@ export const DataProvider=({children})=>{
             setLang('ENG')
         }catch(err){
             setLang('AR')
-            errorFormat(err)
+            errorFormat(err ,"couldn't aquire default language")
         }finally{
             isLoading=false
         }
@@ -95,12 +95,11 @@ export const DataProvider=({children})=>{
     })
     useEffect(()=>{
         const containers = document.querySelectorAll('.observed');
-        console.log(containers.length)
         containers.forEach(container=>observer.observe(container))
       },[posts])
   return(
       <DataContext.Provider value={{
-            posts ,error ,setLang ,lang
+            posts ,error ,setLang ,lang ,moreInfo ,setMoreInfo
         }}>
           {children}
       </DataContext.Provider>
