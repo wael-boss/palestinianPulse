@@ -11,7 +11,7 @@ const MoreInfoPopUp = () => {
   })
   const resultData={
     title:'',
-    descriptionBlock:'',
+    description:'',
     imageURLS:[],
     date:''
   }
@@ -20,7 +20,7 @@ const MoreInfoPopUp = () => {
     // title
     resultData.title=moreInfo.title
     // description
-    const descriptionBlock=blocks.find(block=>(isNaN(new Date(block.slice(block.indexOf(">")+1 ,-4)).getTime())))
+    const descriptionBlock=blocks.find(block=>block.includes('<p>') && (isNaN(new Date(block.slice(block.indexOf(">")+1 ,-4)).getTime())))
     resultData.description=descriptionBlock.slice(descriptionBlock.indexOf(">")+1 ,-4)
     // images
     const imageBlocks=blocks.filter(block=>block.includes('<figure'))
@@ -29,7 +29,7 @@ const MoreInfoPopUp = () => {
       return resultData.imageURLS.push(splitArr[1].slice(0 ,splitArr[1].indexOf('"')))
     })
     // date
-    resultData.date=isNaN(moreInfo.eventDate.getTime()) ? moreInfo.postDate.toLocaleDateString("en-US").split("/") : moreInfo.eventDate.toLocaleDateString("en-US").split("/")
+    resultData.date=isNaN(moreInfo.eventDate.getTime()) ? moreInfo.postDate.toLocaleDateString("en-US") : moreInfo.eventDate.toLocaleDateString("en-US")
   }
   breakInfoBlock()
   return (
@@ -38,13 +38,15 @@ const MoreInfoPopUp = () => {
             <GrClose id='closeInfo' onClick={()=>{setMoreInfo(null)}}/>
             <div id='moreInfoBox'>
               <h1>{resultData.title}</h1>
-              <p>{resultData.description}</p>
+              {resultData.description.length>0 &&<p>{resultData.description}</p>}
               <div id='images'>
-                {resultData.imageURLS.map((url ,i)=>{
-                  return <img src={url} alt='' key={i}/>
-                })}
+                {resultData.imageURLS.length ? resultData.imageURLS.map((url ,i)=>{
+                  return <img src={url} alt='' key={i} loading='lazy' decoding='async'/>
+                }): 
+                <div>empty</div>
+                }
               </div>
-              <p id='eventDate'>{resultData.date.join('')}</p>
+              {resultData.date.length>0 &&<p id='eventDate'>{resultData.date}</p>}
             </div>
         </div>
     </div>

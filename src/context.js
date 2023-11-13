@@ -6,8 +6,11 @@ export const DataProvider=({children})=>{
         'DZ', 'BH', 'KM', 'DJ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY',
         'MR', 'MA', 'OM', 'PS', 'QA', 'SA', 'SO', 'SD', 'SY', 'TN', 'AE', 'YE'
       ]
-    let isLoading=false
-    const [posts ,setPosts]=useState([])
+    let gettingDefLang=false
+    const [posts ,setPosts]=useState({
+        AR:[],
+        ENG:[]
+    })
     const [lang ,setLang]=useState(null)
     const [error ,setError]=useState(null)
     const [moreInfo ,setMoreInfo]=useState(null)
@@ -16,7 +19,7 @@ export const DataProvider=({children})=>{
         posts.map((post)=>{
             const blocks=post.content.rendered.trim('\n').split('\n\n\n\n')
             // find p block that holds the event date no mater the placement
-            const dateBlock=blocks.find(block=>(isNaN(new Date(block.slice(block.indexOf(">")+1 ,-4)).getTime())))
+            const dateBlock=blocks.find(block=>(!isNaN(new Date(block.slice(block.indexOf(">")+1 ,-4)).getTime())))
             // check if a date block exists or not
             const eventDate=!dateBlock ? "" : dateBlock.slice(dateBlock.indexOf(">")+1 ,-4)
             return result.push({
@@ -33,13 +36,17 @@ export const DataProvider=({children})=>{
         const URL="https://palestine.abdel-alim.com/wp-json/wp/v2/posts"
         try{
             const data=await axios.get(URL)
-            setPosts(postsFormat(data.data))
+            setPosts(prev=>{
+                let newPosts={...prev}
+                newPosts[lang+'']=postsFormat(data.data)
+                return newPosts
+            })
         }catch(err){
             errorFormat(err)
         }
     }
     const defaultLang=async()=>{
-        isLoading=true
+        gettingDefLang=true
         try{
             const ip=await axios.get('https://api.ipify.org')
             const ipData=await axios.get(`http://ip-api.com/json/${ip.data}`)
@@ -50,7 +57,7 @@ export const DataProvider=({children})=>{
             setLang('AR')
             errorFormat(err ,"couldn't aquire default language")
         }finally{
-            isLoading=false
+            gettingDefLang=false
         }
     }
     const errorFormat=(err ,message=null)=>{
@@ -68,7 +75,7 @@ export const DataProvider=({children})=>{
         }
     }
     useEffect(()=>{
-        if(!lang && !isLoading) defaultLang()
+        if(!lang && !gettingDefLang) defaultLang()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     useEffect(()=>{
