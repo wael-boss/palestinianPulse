@@ -13,16 +13,18 @@ export const DataProvider=({children})=>{
     const [moreInfo ,setMoreInfo]=useState(null)
     const postsFormat=(posts)=>{
         let result=[]
-        posts.map(post=>{
+        posts.map((post)=>{
             const blocks=post.content.rendered.trim('\n').split('\n\n\n\n')
-            const dateBlock=blocks[blocks.length-1]
-            const eventDate=dateBlock.slice(dateBlock.indexOf(">")+1 ,-4)
+            // find p block that holds the event date no mater the placement
+            const dateBlock=blocks.find(block=>(isNaN(new Date(block.slice(block.indexOf(">")+1 ,-4)).getTime())))
+            // check if a date block exists or not
+            const eventDate=!dateBlock ? "" : dateBlock.slice(dateBlock.indexOf(">")+1 ,-4)
             return result.push({
                 id:post.id,
                 title:post.title.rendered,
                 eventDate:new Date(eventDate),
                 postDate:new Date(post.date),
-                block:post.content.rendered
+                blocks:blocks
             })
         })
         return result

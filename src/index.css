@@ -32,8 +32,8 @@
   box-sizing: border-box;
   font-family: var(--font2);
   font-size: var(--fontSize-M);
-  scrollbar-color: var(--red) var(--black1);
-  scrollbar-width:thin;
+  scrollbar-color: var(--blue) var(--white3);
+  scrollbar-width:7px;
   scrollbar-gutter: none;
 }
 ::selection{
@@ -147,7 +147,15 @@ body {
 }
 #moreInfoBox img{
   width: auto;
-  height: 200px;
+  height: 150px;
+}
+#moreInfoBox h1{
+  font-size: var(--fontSize-B);
+  color: var(--black2);
+}
+#moreInfoBox p{
+  font-size: var(--fontSize-M);
+  color: var(--black4);
 }
 #closeInfo{
   position: absolute;
