@@ -88,9 +88,10 @@ const MoreInfoPopUp = () => {
                   {resultData.imageURLS.length ? resultData.imageURLS.map((url ,i)=>{
                     return <img src={url} alt='' key={i} loading='lazy' decoding='async'/>
                   }): 
-                  <div>empty</div>
+                  <img src='noImg.jpg' alt='no img'/>
                   }
                 </div>
+                {resultData.imageURLS.length>0 &&
                 <div id='imageIndicators'>
                   <AiOutlineDoubleLeft
                     onClick={()=>{
@@ -115,7 +116,7 @@ const MoreInfoPopUp = () => {
                       handleSliderScroll(sliderWidth)
                     }}
                   />
-                </div>
+                </div>}
               </div>
             </div>
         </div>

@@ -10,6 +10,12 @@
       --fontSize-M:18px;
       --fontSize-S:15px;
   }
+  #textInfo{
+    width: 50%;
+  }
+  #imageInfo{
+    width: 50%;
+  }
 }
 @media (width<768px){
   :root{
@@ -39,6 +45,16 @@
     border-left: none;
     border-right: 1px solid var(--white3);
   }
+  #moreInfoBox {
+    flex-direction: column;
+    gap: 20px;
+  }
+  #moreInfoBox>div{
+    width: 100%;
+  }
+  #imageIndicators{
+    display: none;
+  }
 }
 @media (width<576px){
   :root{
@@ -46,11 +62,21 @@
       --fontSize-M:16px;
       --fontSize-S:13px;
   }
+  #moreInfoContainer{
+    width: 100%;
+    border-radius: 0;
+  }
+  #imageSlider{
+    height: 250px;
+  }
 }
 @media (width<450px){
   :root{
       --fontSize-B:18px;
       --fontSize-M:14px;
       --fontSize-S:11px;
+  }
+  #imageSlider{
+    height: 200px;
   }
 }

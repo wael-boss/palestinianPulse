@@ -7,8 +7,7 @@ const TimeLine = () => {
     const {posts ,lang}=useContext(DataContext)
     return (
       <div id="timeLineContainer">
-          {posts[lang+'']?.length>0 ? 
-          posts[lang+'']?.length>0 && posts[lang+''].sort((a ,b)=>{
+          {posts[lang+'']?.length>0 ? posts[lang+''].sort((a ,b)=>{
               const aTime=isNaN(a.eventDate.getTime()) ? a.postDate.getTime() : a.eventDate.getTime()
               const bTime=isNaN(b.eventDate.getTime()) ? b.postDate.getTime() : b.eventDate.getTime()
           return bTime-aTime  
