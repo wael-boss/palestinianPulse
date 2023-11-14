@@ -14,6 +14,7 @@
   --white4:hsl(0, 0%, 80%);
   --white5:hsl(0, 0%, 70%);
   --langAlign:right;
+  --langDirection:row-reverse;
   --font1:'Noto Nastaliq Urdu', serif;
   --font2:tahoma;
   --font3: 'Reem Kufi Fun', sans-serif;
@@ -121,33 +122,36 @@ body {
   background-color: hsla(0, 0%, 0%, 0.5);
   backdrop-filter:blur(5px);
   z-index: 11;
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: right;
+  align-items: flex-end;
 }
 #moreInfoContainer{
   position: relative;
-  width: 70%;
-  height: 70%;
+  height: 90%;
+  width: 90%;
+  overflow-y: scroll;
+  overflow-x: hidden;
   background-color: var(--white3);
-  border-radius: var(--radius-B) 0  0 var(--radius-B);
-  display: flex;
-  overflow: hidden;
-  justify-content: center;
+  border-radius: var(--radius-B) 0 0 0;
 }
+#moreInfoBox {
+  padding: 20px 5%;
+  display: flex;
+  flex-direction: var(--langDirection);
+  margin-top: 40px;
+  overflow: hidden;
+}
+
 #moreInfoBox *{
   text-align: var(--langAlign);
 }
-#moreInfoBox{
-  padding: 0 5%;
-  width: 100%;
-  margin-top: 50px;
-  box-sizing:border-box;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-#moreInfoBox img{
-  width: auto;
-  height: 150px;
+#textInfo{
+  max-height: 100%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 #moreInfoBox h1{
   font-size: var(--fontSize-B);
@@ -157,16 +161,93 @@ body {
   font-size: var(--fontSize-M);
   color: var(--black4);
 }
-#closeInfo{
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: var(--fontSize-B);
-  transition: all .3s ease-in-out;
+#imageInfo{
+  max-height: 100%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#imageSlider{
+  width:100%;
+  display: flex;
+  align-items: center;
+  overflow: auto;
+  scroll-snap-type: x mandatory;
+}
+#imageSlider::-webkit-scrollbar{
+display: none;
+}
+#imageSlider>img{
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#imageIndicators{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+#imageIndicators>div{
+  flex-grow: 1;
+  width: 20%;
+  height: 5px;
+  background-color: var(--white5);
+  border-radius: 10px;
   cursor: pointer;
 }
-#closeInfo:is(:hover ,:focus){
+#imageIndicators>svg{
+  font-size: 15px;
+  transition: all .1s ease-in-out;
+  cursor: pointer;
+}
+#imageIndicators>svg:is(:hover ,:focus){
+  fill: var(--blue);
+}
+#dateInfo{
+  display: flex;
+  justify-content: var(--langAlign);
+}
+#dateInfo>P{
+  font-size: var(--fontSize-S);
+  letter-spacing: 2px;
+  position: relative;
+  width: fit-content;
+  display: flex;
+  justify-content: var(--langAlign);
+}
+#dateInfo>P::after{
+  content: '';
+  position: absolute;
+  top: 100%;
+  width: 25%;
+  height: 2px;
+  background-color: var(--blue);
+  border-radius: var(--radius-S);
+}
+#closeInfo{
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid var(--black5);
+  width: 100%;
+  padding: 10px 20px;
+  background-color: var(--white3);
+  display: flex;
+  justify-content: right;
+  z-index: 12;
+}
+#closeInfo>svg{
+  font-size: calc(var(--fontSize-B) + 10px);
+  cursor: pointer;
+  transition: all .1s ease-in-out;
+}
+#closeInfo>svg:is(:hover ,:focus){
   scale: 1.1;
+  fill: var(--red);
 }
 #pageView{
   display: flex;

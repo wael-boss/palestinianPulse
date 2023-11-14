@@ -20,7 +20,7 @@ const Post = ({post}) => {
                     <p>{dateArr[2]}</p>
                 </div>}
                 <div className="eventTxt">
-                    <h1>{post.title}</h1>
+                    <h1 dangerouslySetInnerHTML={{__html:post.title}}/>
                 </div>
             </div>
         </div>

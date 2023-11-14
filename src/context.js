@@ -68,8 +68,10 @@ export const DataProvider=({children})=>{
         const root = document.documentElement;
         if(lang==="AR"){
             root.style.setProperty('--langAlign', 'right');
+            root.style.setProperty('--langDirection', 'row-reverse');
         }else if(lang==="ENG"){
             root.style.setProperty('--langAlign', 'left');
+            root.style.setProperty('--langDirection', 'row');
         }else{
 
         }
@@ -80,7 +82,7 @@ export const DataProvider=({children})=>{
     },[])
     useEffect(()=>{
         if(!lang) return 
-        getPosts()
+        if(!posts[lang+''].length) getPosts()
         langPageFormat()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[lang])
