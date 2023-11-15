@@ -14,6 +14,9 @@ export const DataProvider=({children})=>{
     const [lang ,setLang]=useState(null)
     const [error ,setError]=useState(null)
     const [moreInfo ,setMoreInfo]=useState(null)
+    const clearTextFromHtml=(text)=>{
+        return text.replace(/<[^>]*>|&#(\d+);/g, '');
+    }
     const postsFormat=(posts)=>{
         let result=[]
         posts.map((post)=>{
@@ -119,10 +122,10 @@ export const DataProvider=({children})=>{
         const containers = document.querySelectorAll('.observed');
         containers.forEach(container=>observer.observe(container))
         // eslint-disable-next-line react-hooks/exhaustive-deps
-      },[posts])
+      },[posts ,lang])
   return(
       <DataContext.Provider value={{
-            posts ,error ,setLang ,lang ,moreInfo ,setMoreInfo
+            posts ,error ,setLang ,lang ,moreInfo ,setMoreInfo ,clearTextFromHtml
         }}>
           {children}
       </DataContext.Provider>

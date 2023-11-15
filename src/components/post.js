@@ -2,7 +2,7 @@ import { useContext } from "react";
 import DataContext from "../context";
 
 const Post = ({post}) => {
-    const {setMoreInfo}=useContext(DataContext)
+    const {setMoreInfo ,clearTextFromHtml}=useContext(DataContext)
     const monthNames = [
         "January", "February", "March",
         "April", "May", "June",
@@ -20,7 +20,7 @@ const Post = ({post}) => {
                     <p>{dateArr[2]}</p>
                 </div>}
                 <div className="eventTxt">
-                    <h1 dangerouslySetInnerHTML={{__html:post.title}}/>
+                    <h1>{clearTextFromHtml(post.title)}</h1>
                 </div>
             </div>
         </div>

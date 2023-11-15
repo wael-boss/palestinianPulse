@@ -4,7 +4,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import {AiOutlineDoubleLeft ,AiOutlineDoubleRight} from 'react-icons/ai'
 
 const MoreInfoPopUp = () => {
-  const {moreInfo ,setMoreInfo}=useContext(DataContext)
+  const {moreInfo ,setMoreInfo ,clearTextFromHtml}=useContext(DataContext)
   const [sliderWidth ,setSliderWidth]=useState(null)
   const [scrollAmount ,setScrollAmount]=useState(0)
   const sliderRef=useRef()
@@ -79,9 +79,9 @@ const MoreInfoPopUp = () => {
             </div>
             <div id='moreInfoBox'>
               <div id='textInfo'>
-                <h1 dangerouslySetInnerHTML={{__html:resultData.title}}/>
+                <h1 >{clearTextFromHtml(resultData.title)}</h1>
                 {resultData.date.length>0 && <div id='dateInfo'><p>{resultData.date}</p></div>}
-                {resultData.description.length>0 &&<p dangerouslySetInnerHTML={{__html:resultData.description}}/>}
+                {resultData.description.length>0 &&<p>{clearTextFromHtml(resultData.description)}</p>}
               </div>
               <div id='imageInfo'>
                 <div id='imageSlider' ref={sliderRef}>

@@ -7,8 +7,17 @@ const Hero = () => {
           autoPlay
           loop
           muted
+          disablePictureInPicture
         />
-        <img src="palestineFlag.png" alt="palestine-flag"/>
+        <img
+        src="palestineFlag.png"
+        alt="palestine-flag"
+        onClick={()=>window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+          })}
+        />
     </section>
   )
 }

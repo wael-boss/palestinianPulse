@@ -60,7 +60,7 @@
   :root{
       --fontSize-B:20px;
       --fontSize-M:16px;
-      --fontSize-S:13px;
+      --fontSize-S:14px;
   }
   #moreInfoContainer{
     width: 100%;
@@ -71,11 +71,6 @@
   }
 }
 @media (width<450px){
-  :root{
-      --fontSize-B:18px;
-      --fontSize-M:14px;
-      --fontSize-S:11px;
-  }
   #imageSlider{
     height: 200px;
   }
