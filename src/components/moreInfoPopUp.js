@@ -106,7 +106,6 @@ const MoreInfoPopUp = () => {
                                 backgroundColor:Math.floor(scrollAmount/sliderWidth)===i && "var(--blue)"
                               }}
                               onClick={()=>{
-                                console.log(sliderWidth*i)
                                 handleSliderScroll(null ,sliderWidth*i)
                               }}
                             ></div>

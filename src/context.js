@@ -48,10 +48,20 @@ export const DataProvider=({children})=>{
     const defaultLang=async()=>{
         gettingDefLang=true
         try{
-            const ip=await axios.get('https://api.ipify.org')
-            const ipData=await axios.get(`http://ip-api.com/json/${ip.data}`)
-            console.log(ipData.data.countryCode)
-            if(arabicCountryCodes.includes(ipData.data.countryCode)) return setLang('AR')
+            const ip=await axios.request('https://api.ipify.org')
+            const options = {
+                method: 'GET',
+                url: `https://jkosgei-free-ip-geolocation-v1.p.rapidapi.com/${ip.data}`,
+                params: {
+                  'api-key': 'f8083db68d4aa22cd603e0fb544cbfae1dd44fca2cea8ff123118ddc'
+                },
+                headers: {
+                  'X-RapidAPI-Key': '204c9e1f81msh7d59ffa394f26d2p191336jsnfbbaac2259cc',
+                  'X-RapidAPI-Host': 'jkosgei-free-ip-geolocation-v1.p.rapidapi.com'
+                }
+              };
+            const response = await axios.request(options);
+            if(arabicCountryCodes.includes(response.data.country_code)) return setLang('AR')
             setLang('ENG')
         }catch(err){
             setLang('AR')
@@ -61,7 +71,6 @@ export const DataProvider=({children})=>{
         }
     }
     const errorFormat=(err ,message=null)=>{
-        console.log(err)
         setError({data:message!==null ? message : err.response?.data.message ? err.response?.data.message : err.message,time:Date.now()})
     }
     const langPageFormat=()=>{
