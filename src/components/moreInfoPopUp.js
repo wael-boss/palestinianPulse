@@ -12,14 +12,18 @@ const MoreInfoPopUp = () => {
     title:'',
     description:'',
     imageURLS:[],
-    date:''
+    date:'',
+    src:{
+      placeHolder:'',
+      url:'',
+    }
   }
   const breakInfoBlock=()=>{
     let blocks=moreInfo.blocks
     // title
     resultData.title=moreInfo.title
     // description
-    const descriptionBlock=blocks.find(block=>block.includes('<p>') && (isNaN(new Date(block.slice(block.indexOf(">")+1 ,-4)).getTime())))
+    const descriptionBlock=blocks.find(block=>block.includes('<p>') && (isNaN(new Date(block.slice(block.indexOf(">")+1 ,-4)).getTime())) && !block.includes('<a href='))
     if(!!descriptionBlock) resultData.description=descriptionBlock.slice(descriptionBlock.indexOf(">")+1 ,-4)
     // images
     const imageBlocks=blocks.filter(block=>block.includes('<figure'))
@@ -29,6 +33,13 @@ const MoreInfoPopUp = () => {
     })
     // date
     resultData.date=isNaN(moreInfo.eventDate.getTime()) ? moreInfo.postDate.toLocaleDateString("en-US") : moreInfo.eventDate.toLocaleDateString("en-US")
+    // src
+      const srcBlock=blocks.find(block=>block.includes("<p>") && block.includes("<a href="))
+        const href=srcBlock.split('href="')[1].split('"')[0]
+        resultData.src={
+          placeHolder:clearTextFromHtml(srcBlock),
+          href:href,
+        }
   }
   breakInfoBlock()
   const handleSliderScroll=(amount ,postion=null)=>{
@@ -82,6 +93,7 @@ const MoreInfoPopUp = () => {
                 <h1 >{clearTextFromHtml(resultData.title)}</h1>
                 {resultData.date.length>0 && <div id='dateInfo'><p>{resultData.date}</p></div>}
                 {resultData.description.length>0 &&<p>{clearTextFromHtml(resultData.description)}</p>}
+                {resultData.src.placeHolder.length && resultData.src.href.length &&<a target='_blanc' href={resultData.src.href}>{resultData.src.placeHolder}</a>}
               </div>
               <div id='imageInfo'>
                 <div id='imageSlider' ref={sliderRef}>

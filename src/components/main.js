@@ -11,9 +11,9 @@ const Main = () => {
     <div id="pageView">
       <div id="langToggle">
         <button ref={langToggleRef}
+          onBlur={()=>toggleHistory.push(false)}
           onClick={()=>{
             if(toggleHistory[toggleHistory.length-1]){
-              toggleHistory.push(false)
               langToggleRef.current.blur()
             }else{
               toggleHistory.push(true)

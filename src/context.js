@@ -36,14 +36,19 @@ export const DataProvider=({children})=>{
         return result
     }
     const getPosts=async()=>{
-        const URL="https://palestine.abdel-alim.com/wp-json/wp/v2/posts"
+        if(!lang) return 
+        const URL=`https://palestine.abdel-alim.com/wp-json/wp/v2/posts?categories=${lang==="ENG" ? 3 : lang==="AR" ? 4 : ''}`
         try{
             const data=await axios.get(URL)
-            setPosts(prev=>{
-                let newPosts={...prev}
-                newPosts[lang+'']=postsFormat(data.data)
-                return newPosts
-            })
+            if(!data.data.length){
+                errorFormat(null ,"the selected options contain no results")
+            }else{
+                setPosts(prev=>{
+                    let newPosts={...prev}
+                    newPosts[lang]=postsFormat(data.data)
+                    return newPosts
+                })
+            }
         }catch(err){
             errorFormat(err)
         }
@@ -108,7 +113,7 @@ export const DataProvider=({children})=>{
                 if(dif>100) return prev
                 return null
             })
-        },3000)
+        },5000)
     },[error])
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {

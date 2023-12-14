@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600&family=Noto+Nastaliq+Urdu&family=Reem+Kufi+Fun:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Redacted+Script&display=swap');:root{
+@import url('https://fonts.googleapis.com/css2?family=Redacted+Script&display=swap');
+:root{
   --red:hsl(353, 85%, 44%);
   --green:hsl(150, 100%, 24%);
   --blue:#1f73fb;
@@ -93,6 +94,7 @@ body {
   background-color: var(--white1);
   border: none;
   cursor: pointer;
+  transition: all .1s ease-in-out;
 }
 #langToggle svg{
   font-size: calc(var(--fontSize-B) + 10px);
@@ -161,6 +163,14 @@ body {
 #moreInfoBox p{
   font-size: var(--fontSize-M);
   color: var(--black4);
+}
+#moreInfoBox a{
+  font-size: var(--fontSize-M);
+  color: var(--blue);
+  text-decoration: none;
+}
+#moreInfoBox a:is(:hover ,:focus , :active){
+  text-decoration: underline;
 }
 #imageInfo{
   max-height: 100%;
@@ -365,7 +375,7 @@ display: none;
   transform: translateY(-50%);
 }
 .eventContainer:is(.loading)>.event{
-  background: linear-gradient(40deg, var(--white2) 25%, var(--white4) 50%, var(--white2) 75%);
+  background: linear-gradient(40deg, var(--white1) 25%, var(--white4) 50%, var(--white1) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
