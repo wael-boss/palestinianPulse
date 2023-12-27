@@ -79,45 +79,22 @@ body {
 }
 #langToggle{
   position: fixed;
-  bottom: 20px;
-  left: 20px;
+  top: 20px;
+  right: 20px;
   z-index: 10;
-}
-#langToggle>button{
-  position: relative;
+  width: 40px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  font-size: var(--fontSize-M);
   display: grid;
   place-items: center;
   box-shadow: 2px 2px 3px var(--black5);
   padding: 5px;
   box-sizing: content-box;
-  border-radius: 50%;
   background-color: var(--white1);
   border: none;
   cursor: pointer;
   transition: all .1s ease-in-out;
-}
-#langToggle svg{
-  font-size: calc(var(--fontSize-B) + 10px);
-}
-#langToggle>button:is(:hover ,:focus){
-  background-color: var(--white4);
-}
-#langToggle p{
-  position: absolute;
-  font-size: var(--fontSize-S);
-  font-weight: 800;
-  text-align: right;
-  width: 1px;
-  opacity: 0;
-  z-index: -1;
-  transition: all .3s ease-in-out ;
-}
-#langToggle>button:is(:focus)>p{
-  opacity:1;
-  width: 350%;
-}
-#langToggle>button:is(:focus)>:nth-child(3){
-  transform:rotate(-90deg);
 }
 #moreInfoPage{
   position: fixed;
@@ -298,7 +275,7 @@ display: none;
 #heroSection>img{
   position: fixed;
   top: 20px;
-  right: 20px;
+  left: 20px;
   width: 30px;
   z-index: 10;
   cursor: pointer;
@@ -432,14 +409,12 @@ display: none;
   background-color: var(--white1);
   display: flex;
   gap: 10px;
-  opacity: 0;
-  transform: translateY(-50%);
   transition-property: opacity ,transform;
-  transition:opacity .3s .2s,transform .3s .2s ease-in-out  ,background-color .1s;
+  transition:all .2s ease-in-out;
   cursor: pointer;
 }
 .event:is(:hover ,:focus){
-  background-color: var(--white2);
+  background-color: var(--white4);
 }
 .event>div{
   padding: 10px;
@@ -479,4 +454,8 @@ display: none;
 .event>.eventTxt img{
   width: 50px;
   height: 50px;
+}
+#emptyPosts{
+  font-size: var(--fontSize-M);
+  text-align: center;
 }

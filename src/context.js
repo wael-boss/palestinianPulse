@@ -1,4 +1,5 @@
 import axios from "axios"
+import { cloneDeep } from "lodash"
 import { createContext, useEffect, useState } from "react"
 const DataContext=createContext({})
 export const DataProvider=({children})=>{
@@ -6,15 +7,25 @@ export const DataProvider=({children})=>{
         'DZ', 'BH', 'KM', 'DJ', 'EG', 'IQ', 'JO', 'KW', 'LB', 'LY',
         'MR', 'MA', 'OM', 'PS', 'QA', 'SA', 'SO', 'SD', 'SY', 'TN', 'AE', 'YE'
       ]
-    let gettingDefLang=false
+    const maxPostsPerPage=10
     const [posts ,setPosts]=useState({
-        AR:[],
-        ENG:[]
+        AR:{
+            data:[],
+            nextPage:1,
+            isEmpty:false
+        },
+        ENG:{
+            data:[],
+            nextPage:1,
+            isEmpty:false
+        }
     })
     const [lang ,setLang]=useState(null)
     const [error ,setError]=useState(null)
     const [moreInfo ,setMoreInfo]=useState(null)
+    const [isLoading ,setIsLoading]=useState(false)
     const clearTextFromHtml=(text)=>{
+        if(!text) return ""
         return text.replace(/<[^>]*>|&#(\d+);/g, '');
     }
     const postsFormat=(posts)=>{
@@ -35,26 +46,47 @@ export const DataProvider=({children})=>{
         })
         return result
     }
-    const getPosts=async()=>{
-        if(!lang) return 
-        const URL=`https://palestine.abdel-alim.com/wp-json/wp/v2/posts?categories=${lang==="ENG" ? 3 : lang==="AR" ? 4 : ''}`
+    const getNextPosts=async()=>{
+        if(!lang || isLoading) return
+        console.log('getting posts')
+        console.log(posts[lang].nextPage)
+        setIsLoading(true)
+        const URL=`https://palestine.abdel-alim.com/wp-json/wp/v2/posts?categories=${lang==="ENG" ? 3 : lang==="AR" ? 4 : ''}&page=${posts[lang].nextPage}&per_page=${maxPostsPerPage}`
         try{
             const data=await axios.get(URL)
             if(!data.data.length){
-                errorFormat(null ,"the selected options contain no results")
-            }else{
+                console.log("empty")
                 setPosts(prev=>{
                     let newPosts={...prev}
-                    newPosts[lang]=postsFormat(data.data)
+                    newPosts[lang].isEmpty=true
+                    return newPosts
+                })
+            }else{
+                setPosts(prev=>{
+                    const newPosts = cloneDeep(prev);
+                    console.log(newPosts)
+                    newPosts[lang].data=[...newPosts[lang].data ,...postsFormat(data.data)]
+                    newPosts[lang].nextPage+=1
                     return newPosts
                 })
             }
         }catch(err){
             errorFormat(err)
+        }finally{
+            setIsLoading(false)
         }
     }
-    const defaultLang=async()=>{
-        gettingDefLang=true
+    const observer = new IntersectionObserver(
+        (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting && !isLoading) {
+                console.log('ran')
+                getNextPosts()
+            }
+        });
+        },{threshold:1}
+    );
+    const getLangByIp=async()=>{
         try{
             const ip=await axios.request('https://api.ipify.org')
             const options = {
@@ -74,8 +106,6 @@ export const DataProvider=({children})=>{
         }catch(err){
             setLang('AR')
             errorFormat(err ,"couldn't aquire default language")
-        }finally{
-            gettingDefLang=false
         }
     }
     const errorFormat=(err ,message=null)=>{
@@ -94,14 +124,13 @@ export const DataProvider=({children})=>{
         }
     }
     useEffect(()=>{
-        if(!lang && !gettingDefLang) defaultLang()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        if(!lang) getLangByIp()
+        observer.observe(document.getElementById('nextPageTrigger'))
     },[])
     useEffect(()=>{
-        if(!lang) return 
-        if(!posts[lang+''].length) getPosts()
-        langPageFormat()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        if(!lang) return
+        if(!posts[lang].data.length) getNextPosts()
+        langPageFormat() 
     },[lang])
     useEffect(()=>{
         if(!error) return
@@ -115,26 +144,13 @@ export const DataProvider=({children})=>{
             })
         },5000)
     },[error])
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          const intersecting = entry.isIntersecting
-          if (intersecting) {
-            entry.target.classList.replace('observed', 'visible');
-        }
-    });
-    })
-    useEffect(()=>{
-        const containers = document.querySelectorAll('.observed');
-        containers.forEach(container=>observer.observe(container))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      },[posts ,lang])
+    
   return(
       <DataContext.Provider value={{
-            posts ,error ,setLang ,lang ,moreInfo ,setMoreInfo ,clearTextFromHtml
+        getNextPosts ,posts ,error ,setLang ,lang ,moreInfo ,setMoreInfo ,clearTextFromHtml
         }}>
           {children}
       </DataContext.Provider>
   )
   }
-  
   export default DataContext

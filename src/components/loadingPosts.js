@@ -2,7 +2,7 @@
 const LoadingPosts = () => {
   return (
     <>
-        <div className="eventContainer loading observed">
+        <div className="eventContainer loading">
             <div className="event">
                 <div className="eventDate">
                     <p>Oct</p>
@@ -14,7 +14,7 @@ const LoadingPosts = () => {
                 </div>
             </div>
         </div>
-        <div className="eventContainer loading observed">
+        <div className="eventContainer loading">
             <div className="event">
                 <div className="eventDate">
                     <p>Mar</p>
@@ -26,7 +26,7 @@ const LoadingPosts = () => {
                 </div>
             </div>
         </div>
-        <div className="eventContainer loading observed">
+        <div className="eventContainer loading">
             <div className="event">
                 <div className="eventDate">
                     <p>Oct</p>
@@ -38,7 +38,7 @@ const LoadingPosts = () => {
                 </div>
             </div>
         </div>
-        <div className="eventContainer loading observed">
+        <div className="eventContainer loading">
             <div className="event">
                 <div className="eventDate">
                     <p>Mar</p>
@@ -50,7 +50,7 @@ const LoadingPosts = () => {
                 </div>
             </div>
         </div>
-        <div className="eventContainer loading observed">
+        <div className="eventContainer loading">
             <div className="event">
                 <div className="eventDate">
                     <p>Oct</p>
@@ -62,7 +62,7 @@ const LoadingPosts = () => {
                 </div>
             </div>
         </div>
-        <div className="eventContainer loading observed">
+        <div className="eventContainer loading">
             <div className="event">
                 <div className="eventDate">
                     <p>Mar</p>

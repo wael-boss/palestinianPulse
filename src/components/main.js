@@ -1,29 +1,22 @@
-import { useContext, useRef } from "react"
+import React, { useContext, useMemo } from "react"
 import Hero from "./hero"
-import TimeLine from "./timeLine"
-import {HiLanguage} from 'react-icons/hi2'
 import DataContext from "../context"
-const Main = () => {
-  const {setLang ,lang}=useContext(DataContext)
-  const langToggleRef=useRef()
-  const toggleHistory=[false]
+import TimeLine from "./timeLine"
+const Main =() => {
+  const {setLang ,lang }=useContext(DataContext)
   return (
     <div id="pageView">
-      <div id="langToggle">
-        <button ref={langToggleRef}
-          onBlur={()=>toggleHistory.push(false)}
+        <button
+          id="langToggle"
           onClick={()=>{
-            if(toggleHistory[toggleHistory.length-1]){
-              langToggleRef.current.blur()
+            if(lang==="AR"){
+              setLang("ENG")
             }else{
-              toggleHistory.push(true)
+              setLang("AR")
             }
         }}>
-          <HiLanguage/>
-          <p onClick={()=>{if(lang!=="ENG") setLang('ENG');langToggleRef.current.blur()}}>ENG</p>
-          <p onClick={()=>{if(lang!=="AR") setLang('AR');langToggleRef.current.blur()}}>AR</p>
+          {lang==="AR" ? "ENG" : "AR"}
         </button>
-      </div>
       <Hero/>
       <section id="timeLineSection">
         <TimeLine/>
