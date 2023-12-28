@@ -10,7 +10,7 @@ const Post = ({post}) => {
         "October", "November", "December"
     ];
     // [month ,date ,year]
-    const dateArr=isNaN(post.eventDate.getTime()) ? post.postDate.toLocaleDateString("en-US").split("/") : post.eventDate.toLocaleDateString("en-US").split("/")
+    const dateArr=post.postDate.toLocaleDateString("en-US").split("/")
     return (
         <div className="eventContainer observed">
             <div className="event" onClick={()=>{setMoreInfo(post)}}>

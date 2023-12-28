@@ -8,7 +8,7 @@ export const DataProvider=({children})=>{
         'MR', 'MA', 'OM', 'PS', 'QA', 'SA', 'SO', 'SD', 'SY', 'TN', 'AE', 'YE'
       ]
     const maxPostsPerPage=10
-    const [posts ,setPosts]=useState({
+    const [posts ,setPosts]=useState(JSON.parse(sessionStorage.getItem('posts')) || {
         AR:{
             data:[],
             nextPage:1,
@@ -20,10 +20,10 @@ export const DataProvider=({children})=>{
             isEmpty:false
         }
     })
-    const [lang ,setLang]=useState(null)
+    const [lang ,setLang]=useState(localStorage.getItem('defaultLang') || null)
     const [error ,setError]=useState(null)
     const [moreInfo ,setMoreInfo]=useState(null)
-    const [isLoading ,setIsLoading]=useState(false)
+    const [loading ,setLoading]=useState(null)
     const clearTextFromHtml=(text)=>{
         if(!text) return ""
         return text.replace(/<[^>]*>|&#(\d+);/g, '');
@@ -31,29 +31,23 @@ export const DataProvider=({children})=>{
     const postsFormat=(posts)=>{
         let result=[]
         posts.map((post)=>{
-            const blocks=post.content.rendered.trim('\n').split('\n\n\n\n')
-            // find p block that holds the event date no mater the placement
-            const dateBlock=blocks.find(block=>(!isNaN(new Date(block.slice(block.indexOf(">")+1 ,-4)).getTime())))
-            // check if a date block exists or not
-            const eventDate=!dateBlock ? "" : dateBlock.slice(dateBlock.indexOf(">")+1 ,-4)
             return result.push({
                 id:post.id,
                 title:post.title.rendered,
-                eventDate:new Date(eventDate),
-                postDate:new Date(post.date),
-                blocks:blocks
+                postDate:post.date,
+                blocks:post.content.rendered.trim('\n').split('\n\n\n\n')
             })
         })
         return result
     }
     const getNextPosts=async()=>{
-        if(!lang || isLoading) return
         console.log('getting posts')
-        console.log(posts[lang].nextPage)
-        setIsLoading(true)
+        console.log(posts ,lang)
         const URL=`https://palestine.abdel-alim.com/wp-json/wp/v2/posts?categories=${lang==="ENG" ? 3 : lang==="AR" ? 4 : ''}&page=${posts[lang].nextPage}&per_page=${maxPostsPerPage}`
         try{
+            console.log('t')
             const data=await axios.get(URL)
+            console.log('e')
             if(!data.data.length){
                 console.log("empty")
                 setPosts(prev=>{
@@ -71,17 +65,25 @@ export const DataProvider=({children})=>{
                 })
             }
         }catch(err){
+            if(err.code==="rest_post_invalid_page_number"){
+                // the maxPostsPerPage is over the posts left || reached the end
+            }
             errorFormat(err)
         }finally{
-            setIsLoading(false)
+            setLoading(null)
         }
     }
     const observer = new IntersectionObserver(
         (entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting && !isLoading) {
-                console.log('ran')
-                getNextPosts()
+            entries.forEach((entry) => {
+                if (entry.isIntersecting && !loading) {
+                    setLoading(prev=>{
+                        if(!prev){
+                            return "getPosts"
+                        }else{
+                            return prev
+                        }
+                    })
             }
         });
         },{threshold:1}
@@ -101,11 +103,18 @@ export const DataProvider=({children})=>{
                 }
               };
             const response = await axios.request(options);
-            if(arabicCountryCodes.includes(response.data.country_code)) return setLang('AR')
-            setLang('ENG')
+            if(arabicCountryCodes.includes(response.data.country_code)){
+                localStorage.setItem("defaultLang" ,"AR")
+                setLang('AR')
+            }else{
+                localStorage.setItem("defaultLang" ,"ENG")
+                setLang('ENG')
+            }
         }catch(err){
             setLang('AR')
             errorFormat(err ,"couldn't aquire default language")
+        }finally{
+            setLoading(null)
         }
     }
     const errorFormat=(err ,message=null)=>{
@@ -124,14 +133,33 @@ export const DataProvider=({children})=>{
         }
     }
     useEffect(()=>{
-        if(!lang) getLangByIp()
+        switch(loading){
+            case"getPosts":
+                if(!lang) break
+                getNextPosts()
+                break;
+            case"getDefaultLang":
+                getLangByIp()
+                break;
+            default:
+                break;
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[loading])
+    useEffect(()=>{
+        if(!lang) setLoading("getDefaultLang")
         observer.observe(document.getElementById('nextPageTrigger'))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
     useEffect(()=>{
         if(!lang) return
-        if(!posts[lang].data.length) getNextPosts()
+        if(!posts[lang].data.length) setLoading("getPosts")
         langPageFormat() 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[lang])
+    useEffect(()=>{
+        sessionStorage.setItem("posts" ,JSON.stringify(posts))
+    },[posts])
     useEffect(()=>{
         if(!error) return
         setTimeout(()=>{
@@ -147,7 +175,7 @@ export const DataProvider=({children})=>{
     
   return(
       <DataContext.Provider value={{
-        getNextPosts ,posts ,error ,setLang ,lang ,moreInfo ,setMoreInfo ,clearTextFromHtml
+        loading ,getNextPosts ,posts ,error ,setLang ,lang ,moreInfo ,setMoreInfo ,clearTextFromHtml
         }}>
           {children}
       </DataContext.Provider>

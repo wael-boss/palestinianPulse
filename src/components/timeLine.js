@@ -5,6 +5,9 @@ import LoadingPosts from "./loadingPosts"
 
 const TimeLine = () => {
     const {posts ,lang}=useContext(DataContext)
+    const dateClass=(date)=>{
+        return new Date(date)
+    }
     return (
         <>
         {posts[lang+'']?.isEmpty ?
@@ -12,15 +15,14 @@ const TimeLine = () => {
         <div id="timeLineContainer">
             {posts[lang+'']?.data.length ? 
                     posts[lang+''].data.sort((a ,b)=>{
-                    const aTime=isNaN(a.eventDate.getTime()) ? a.postDate.getTime() : a.eventDate.getTime()
-                    const bTime=isNaN(b.eventDate.getTime()) ? b.postDate.getTime() : b.eventDate.getTime()
-                    return bTime-aTime  
-                    }).map(post=>{
-                        return <Post
-                                    key={post.id}
-                                    post={post}
-                                />
-            }): 
+                        return dateClass(b.postDate).getTime()-dateClass(a.postDate).getTime()  
+                        }).map(post=>{
+                            post.postDate=dateClass(post.postDate)
+                            return <Post
+                                        key={post.id}
+                                        post={post}
+                                    />
+                        }): 
                 <LoadingPosts/>
             }
             <div id="nextPageTrigger" className="eventContainer loading">

@@ -15,7 +15,7 @@ const Main =() => {
               setLang("AR")
             }
         }}>
-          {lang==="AR" ? "ENG" : "AR"}
+          {!lang ? "" : lang==="ENG" ? "AR" : "ENG"}
         </button>
       <Hero/>
       <section id="timeLineSection">
