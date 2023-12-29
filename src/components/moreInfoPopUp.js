@@ -32,7 +32,7 @@ const MoreInfoPopUp = () => {
       return resultData.imageURLS.push(splitArr[1].slice(0 ,splitArr[1].indexOf('"')))
     })
     // date
-    resultData.date=isNaN(moreInfo.eventDate.getTime()) ? moreInfo.postDate.toLocaleDateString("en-US") : moreInfo.eventDate.toLocaleDateString("en-US")
+    resultData.date=moreInfo.postDate.toLocaleDateString("en-US")
     // src
       const srcBlock=blocks.find(block=>block.includes("<p><a href="))      
       const href=!srcBlock ? "" : srcBlock.split('href="')[1].split('"')[0]

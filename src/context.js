@@ -8,16 +8,20 @@ export const DataProvider=({children})=>{
         'MR', 'MA', 'OM', 'PS', 'QA', 'SA', 'SO', 'SD', 'SY', 'TN', 'AE', 'YE'
       ]
     const maxPostsPerPage=10
-    const [posts ,setPosts]=useState(JSON.parse(sessionStorage.getItem('posts')) || {
+    const [posts ,setPosts]=useState(
+        // JSON.parse(sessionStorage.getItem('posts')) || 
+        {
         AR:{
             data:[],
             nextPage:1,
-            isEmpty:false
+            isEmpty:false,
+            maxPosts:null
         },
         ENG:{
             data:[],
             nextPage:1,
-            isEmpty:false
+            isEmpty:false,
+            maxPosts:null
         }
     })
     const [lang ,setLang]=useState(localStorage.getItem('defaultLang') || null)
@@ -41,42 +45,37 @@ export const DataProvider=({children})=>{
         return result
     }
     const getNextPosts=async()=>{
-        console.log('getting posts')
-        console.log(posts ,lang)
         const URL=`https://palestine.abdel-alim.com/wp-json/wp/v2/posts?categories=${lang==="ENG" ? 3 : lang==="AR" ? 4 : ''}&page=${posts[lang].nextPage}&per_page=${maxPostsPerPage}`
         try{
-            console.log('t')
             const data=await axios.get(URL)
-            console.log('e')
+            // const totalCount = data.headers.get('X-WP-Total');
+            // const totalPages = data.headers.get('X-WP-TotalPages');
+            // console.log(totalCount ,totalPages)
             if(!data.data.length){
-                console.log("empty")
                 setPosts(prev=>{
-                    let newPosts={...prev}
+                    let newPosts=cloneDeep(prev)
                     newPosts[lang].isEmpty=true
                     return newPosts
                 })
             }else{
                 setPosts(prev=>{
-                    const newPosts = cloneDeep(prev);
-                    console.log(newPosts)
+                    const newPosts=cloneDeep(prev)
                     newPosts[lang].data=[...newPosts[lang].data ,...postsFormat(data.data)]
                     newPosts[lang].nextPage+=1
+                    if(!newPosts[lang].maxPosts) newPosts[lang].maxPosts=Number(data.headers.get('X-WP-Total'))
                     return newPosts
                 })
             }
         }catch(err){
-            if(err.code==="rest_post_invalid_page_number"){
-                // the maxPostsPerPage is over the posts left || reached the end
-            }
             errorFormat(err)
         }finally{
             setLoading(null)
         }
     }
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting && !loading) {
+    const observer =new IntersectionObserver(
+        (entries)=>{
+            entries.forEach((entry)=>{
+                if (entry.isIntersecting && !loading){
                     setLoading(prev=>{
                         if(!prev){
                             return "getPosts"
@@ -132,6 +131,10 @@ export const DataProvider=({children})=>{
 
         }
     }
+    const swapObservedTrigger=(element)=>{
+        observer.unobserve(element)
+        observer.observe(element)
+    }
     useEffect(()=>{
         switch(loading){
             case"getPosts":
@@ -154,6 +157,7 @@ export const DataProvider=({children})=>{
     useEffect(()=>{
         if(!lang) return
         if(!posts[lang].data.length) setLoading("getPosts")
+        swapObservedTrigger(document.getElementById('nextPageTrigger'))
         langPageFormat() 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[lang])

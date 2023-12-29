@@ -25,7 +25,7 @@ const TimeLine = () => {
                         }): 
                 <LoadingPosts/>
             }
-            <div id="nextPageTrigger" className="eventContainer loading">
+            {posts[lang].data.length!==posts[lang].maxPosts &&<div id="nextPageTrigger" className="eventContainer loading">
                 <div className="event">
                     <div className="eventDate">
                         <p>Oct</p>
@@ -36,7 +36,7 @@ const TimeLine = () => {
                         <h1>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus molestias harum animi velit quis inventore iste adipisci perferendis nisi nulla!</h1>
                     </div>
                 </div>
-            </div> 
+            </div>} 
         </div>
         }
         </>
